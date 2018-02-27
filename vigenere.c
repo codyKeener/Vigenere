@@ -1,0 +1,69 @@
+#include <cs50.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+int main(int argc, string argv[])
+{
+
+    //assing argv to a string
+    string keyword = (argv[1]);
+
+    //make sure the user enters a key as a command line argurment
+    if (argc != 2)
+    {
+        printf("ERROR. PLEASE ENTER A VALID KEY.\n");
+        return 1;
+    }
+
+    //make sure the key entered consists of all letters
+    for (int i = 0; i < strlen(keyword); i++)
+    {
+        if (!isalpha(keyword[i]))
+        {
+            printf("ERROR. PLEASE ENTER A VALID KEY.\n");
+            return 1;
+        }
+    }
+
+    //get plaintext from user
+    string plaintext = get_string("Plaintext: ");
+
+    //encipher plaintext
+    printf("ciphertext: ");
+
+        //create integer for key loop
+        int j = 0;
+
+        for (int i = 0; i < strlen(plaintext); i++)
+        {
+
+            //check if each character is a letter
+            if isalpha(plaintext[i])
+
+            {
+                //check if each character is uppercase
+                if isupper(plaintext[i])
+                {
+                    printf("%c", ((((plaintext[i] -65) + toupper(keyword[j]) -65) % 26) + 65));
+                    j++;
+                }
+                //check if each character is lowercase
+                else if islower(plaintext[i])
+                {
+                    printf("%c", ((((plaintext[i] -97) + tolower(keyword[j]) -97) % 26) + 97));
+                    j++;
+                }
+            }
+
+            //if character is not a letter, just print the character
+            else
+                printf("%c", plaintext[i]);
+
+        }
+
+        printf ("\n");
+        return 0;
+
+}
